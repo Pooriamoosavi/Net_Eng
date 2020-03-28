@@ -37,10 +37,11 @@ app.get('/gis/testpoint/:lat/:long', function (req, res) {
     var point=turf.point([req.params.long,req.params.lat])
     var result=memory.search(point)
     var finalResult=result;
-    if(result.isEmpty)
+    console.log(result)
+    if(result.features=[])
       finalResult={
         code : 200,
-        msg:'search was successful but no results have been found!'
+        msg:'search was successful but no results have been found! this means the point '+req.params.lat+' - '+req.params.long+" doesn't exist in our preset polygons"
       }
     res.header("Content-Type",'application/json');
     res.send(JSON.stringify(finalResult)) 

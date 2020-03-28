@@ -27,7 +27,6 @@ const addToMemory=(polygon)=>{
 
 const searchInMemory=(point)=>{
     var result=[];
-    console.log(memory)
     memory.features.forEach(polygon => {
         if(turf.booleanPointInPolygon(point,polygon.geometry))
         {

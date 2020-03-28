@@ -7,7 +7,10 @@ const GJV=require('geojson-validation')
 
 //----------------------------Server Initialization------------------------------//
 const app = express()
-const getErrMsg='Invalid Request : Please pass the lat and long in the URL. ex:/gis/testpoint/35.322456/50.23445';
+const getErrMsg={
+  paramsMissing:'Invalid Request : Please pass the lat and long in the URL. ex:/gis/testpoint/35.322456/50.23445',
+  noParams:'Invalid Request : try /gis/testpoint/35.322456/50.23445'
+};
 const putErrMsg={
   bodyMissing:'Bad Request : Body is missing!',
   wrongFormat:'Bad Request : Wrong format - No polygon has been added',
@@ -33,19 +36,30 @@ app.use(initialization);
 app.get('/gis/testpoint/:lat/:long', function (req, res) {
     var point=turf.point([req.params.long,req.params.lat])
     var result=memory.search(point)
+    var finalResult=result;
+    if(result.isEmpty)
+      finalResult={
+        code : 200,
+        msg:'search was successful but no results have been found!'
+      }
     res.header("Content-Type",'application/json');
-    res.send(JSON.stringify(result)) 
+    res.send(JSON.stringify(finalResult)) 
 })
 
 //Error Handling In GET Request
 app.get('/gis/testpoint/',function(req,res){
   res.header("Content-Type",'application/json');
-  res.send(errGen(400,getErrMsg))
+  res.send(errGen(400,getErrMsg.paramsMissing))
 })
 
 app.get('/gis/testpoint/:prop',function(req,res){
   res.header("Content-Type",'application/json');
-  res.send(errGen(400,getErrMsg))
+  res.send(errGen(400,getErrMsg.paramsMissing))
+})
+
+app.get('/',function(req,res){
+  res.header("Content-Type",'application/json');
+  res.send(errGen(400,getErrMsg.noParams))
 })
 
 //PUT Request Handling

@@ -1,1 +1,1 @@
-web: node app.jsgit
+web: node app.js

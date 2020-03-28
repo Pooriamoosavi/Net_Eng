@@ -1,0 +1,25 @@
+{
+  "name": "net_eng_hw1",
+  "version": "1.0.0",
+  "description": "Net Engineering HW1 ------------------- Live Project URL : <a></a>",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pooriamoosavi/Net_Eng.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pooriamoosavi/Net_Eng/issues"
+  },
+  "homepage": "https://github.com/Pooriamoosavi/Net_Eng#readme"
+}

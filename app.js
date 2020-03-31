@@ -36,9 +36,8 @@ app.use(initialization);
 app.get('/gis/testpoint/:lat/:long', function (req, res) {
     var point=turf.point([req.params.long,req.params.lat])
     var result=memory.search(point)
-    var finalResult=result;
-    console.log(result)
-    if(result.features=[])
+    var finalResult=nameExtractor(result);
+    if(result.features.length==0)
       finalResult={
         code : 200,
         msg:'search was successful but no results have been found! this means the point '+req.params.lat+' - '+req.params.long+" doesn't exist in our preset polygons"
@@ -97,6 +96,16 @@ const errGen=(errcode,errmsg)=>{
     code:errcode,
     msg:errmsg
   })
+}
+
+const nameExtractor=(featureCollection)=>{
+  const result={
+    polygons:[]
+  };
+  featureCollection.features.forEach(feature => {
+    result.polygons.push(feature.properties.name)
+  });
+  return result;
 }
 
 

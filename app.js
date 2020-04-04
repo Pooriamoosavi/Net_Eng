@@ -30,7 +30,7 @@ const initialization=(req,res,next)=>{
   try{
     memory.init()
   }catch(e){
-    if(memory.get==undefined)
+    if(memory==undefined)
       initFlag=false;
   }
   next()
